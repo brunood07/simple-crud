@@ -22,11 +22,16 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<Page<ListingBookDTO>> list(@PageableDefault(size = 10, sort = {"title"}) Pageable pagination) {
-        System.out.println("TESTE+++++++++++++++++");
         var books = booksRepository.findAllByActiveTrue(pagination);
-        System.out.println("books: " + books);
         return ResponseEntity.ok(books.map(ListingBookDTO::new));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ListingBookDTO> find(@PathVariable Long id) {
+        var book = booksRepository.getReferenceById(id);
+        return ResponseEntity.ok().body(new ListingBookDTO(book));
+    }
+
 
     @ResponseBody
     @Transactional
