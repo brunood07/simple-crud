@@ -32,7 +32,6 @@ public class BookController {
         return ResponseEntity.ok().body(new ListingBookDTO(book));
     }
 
-
     @ResponseBody
     @Transactional
     @PostMapping
